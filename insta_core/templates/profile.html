@@ -181,13 +181,11 @@
                             <div class="general_info">
                                 <p><span>1</span> post</p>
                                 <p><span>{{ followers|length }}</span> followers</p>
-                                <p><span>{{ user.follows.all|length }}</span> following</p>
+                                <p><span>{{ user.follows.count }}</span> following</p>
                             </div>
                             <p class="nick_name">{{ user.first_name }}</p>
                             <p class="desc">
-                                {% if user.bio %}
-                                    {{ user.bio }}
-                                {% endif %}
+                                    {{ user.bio|default_if_none:"" }}
                             </p>
                         </div>
                 </div>

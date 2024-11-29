@@ -16,140 +16,7 @@
     <body>
         <div class="post_page">
             <!--***** nav menu start ****** -->
-            <div class="nav_menu">
-                <div class="fix_top">
-                    <!-- nav for big->medium screen -->
-                    <div class="nav">
-                        <div class="logo">
-                            <a href="{% static 'home.html">
-                                <img class="d-block d-lg-none small-logo" src="{% static 'images/instagram.png' %}" alt="logo">
-                                <img class="d-none d-lg-block" src="{% static 'images/logo_menu.png' %}" alt="logo">
-                            </a>
-                        </div>
-                        <div class="menu">
-                            <ul>
-                                <li>
-                                    <a class="active" href="home.html">
-                                        <img src="{% static 'images/accueil.png' %}">
-                                        <span class="d-none d-lg-block ">Home</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{% static 'reels.html">
-                                        <img src="{% static 'images/video.png' %}">
-                                        <span class="d-none d-lg-block ">Reels</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{% static 'messages.html">
-                                        <img src="{% static 'images/send.png' %}">
-                                        <span class="d-none d-lg-block ">Messages</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#create_modal">
-                                        <img src="{% static 'images/tab.png' %}">
-                                        <span class="d-none d-lg-block ">Create</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{% static 'profile.html">
-                                        <img class="circle story" src="{% static 'images/profile_img.jpg' %}">
-                                        <span class="d-none d-lg-block ">Profile</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- nav for small screen  -->
-                    <div class="nav_sm">
-                        <div class="content">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img class="logo" src="{% static 'images/logo_menu.png' %}">
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span>Following</span>
-                                            <img src="{% static 'images/add-friend.png' %}">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span>Favorites</span>
-                                            <img src="{% static 'images/star.png' %}">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="left">
-                                <div class="search_bar">
-                                    <div class="input-group">
-                                        <div class="form-outline">
-                                            <div>
-                                                <img src="{% static 'images/search.png' %}" alt="search">
-                                            </div>
-                                            <input type="search" id="form1" class="form-control" placeholder="Search" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="notifications notification_icon">
-                                    <a href="{% static 'notification.html">
-                                        <img src="{% static 'images/love.png' %}">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- nav for ex-small screen  -->
-                    <div class="nav_xm">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="logo" src="{% static 'images/logo_menu.png' %}">
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span>Following</span>
-                                        <img src="{% static 'images/add-friend.png' %}">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <span>Favorites</span>
-                                        <img src="{% static 'images/star.png' %}">
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="left">
-                            <img src="{% static 'images/send.png' %}">
-                            <a href="{% static 'notification.html">
-                                <img class="notification_icon" src="{% static 'images/love.png' %}">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- menu in the botton for smal screen  -->
-                <div class="nav_bottom">
-                    <a href="{% static 'home.html">
-                        <img src="{% static 'images/accueil.png' %}">
-                    </a>
-                    <a href="{% static 'explore.html">
-                        <img src="{% static 'images/compass.png' %}">
-                    </a>
-                    <a href="{% static 'reels.html">
-                        <img src="{% static 'images/video.png' %}">
-                    </a>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#create_modal">
-                        <img src="{% static 'images/tab.png' %}">
-                    </a>
-                    <a href="profile.html">
-                        <img class="circle story" src="{% static 'images/profile_img.jpg' %}">
-                    </a>
-                </div>
-            </div>
+            {% include 'banner.html' %}
             <!-- search  -->
             <div id="search" class="search_section">
                 <h2>Search</h2>
@@ -211,9 +78,9 @@
                                 </div>
                                 <div class="info">
                                     <p class="name"> Zineb_essoussi <span class="desc">started following you.</span>
-                                        <span class="time">2h</span>
+                                <span class="time">2h</span>
                                     </p>
-                                </div>
+                                        </div>
                             </div>
                             <div class="follow_you">
                                 <button class="follow_text">Follow</button>
@@ -310,7 +177,13 @@
                                                 <p>zineb</p>
                                             </div>
                                         </div>
-                                        <div class="owl-item active" style="width: 62.857px; margin-right: 5px;">
+                                        <div class="owl-item " style="width: 62.857px; margin-right: 5px;">
+                                            <div class="item_s">
+                                                <img src="https://i.ibb.co/kD6tj9T/account2.jpg' %}">
+                                                <p>ikram</p>
+                                            </div>
+                                        </div>
+                                        <div class="owl-item " style="width: 62.857px; margin-right: 5px;">
                                             <div class="item_s">
                                                 <img src="https://i.ibb.co/kD6tj9T/account2.jpg' %}">
                                                 <p>ikram</p>
@@ -334,7 +207,7 @@
                                     </div>
                                 </div>
                                 <div class="image">
-                                    <img src="https://i.ibb.co/Jqh3rHv/img1.jpg' %}">
+                                    <img src="https://i.ibb.co/Jqh3rHv/img1.jpg">
                                 </div>
                                 <div class="desc">
                                     <div class="icons">
@@ -376,7 +249,7 @@
                             <div class="post">
                                 <div class="info">
                                     <div class="person">
-                                        <img src="https://i.ibb.co/8x4Hqdw/account2.jpg' %}">
+                                        <img src="https://i.ibb.co/8x4Hqdw/account2.jpg">
                                         <a href="#">ikram</a>
                                         <span class="circle">.</span>
                                         <span>15m</span>
@@ -386,7 +259,7 @@
                                     </div>
                                 </div>
                                 <div class="image">
-                                    <img src="https://i.ibb.co/2ZxBFVp/img2.jpg' %}">
+                                    <img src="https://i.ibb.co/2ZxBFVp/img2.jpg">
                                 </div>
                                 <div class="desc">
                                     <div class="icons">
@@ -428,7 +301,7 @@
                             <div class="post">
                                 <div class="info">
                                     <div class="person">
-                                        <img src="https://i.ibb.co/x68ZFKP/account6.jpg' %}">
+                                        <img src="https://i.ibb.co/x68ZFKP/account6.jpg">
                                         <a href="#">amine</a>
                                         <span class="circle">.</span>
                                         <span>15m</span>
@@ -438,7 +311,7 @@
                                     </div>
                                 </div>
                                 <div class="image">
-                                    <img src="https://i.ibb.co/r7xBR56/img5.jpg' %}">
+                                    <img src="https://i.ibb.co/r7xBR56/img5.jpg">
                                 </div>
                                 <div class="desc">
                                     <div class="icons">
@@ -504,34 +377,25 @@
                                 <h4>Suggestions for you</h4>
                                 <a class="dark" href="#">See All</a>
                             </div>
-                            <div class="cart">
-                                <div>
-                                    <div class="img">
-                                        <img src="{% static 'images/profile_img.jpg' %}" alt="">
+                            {% for item in followers %}
+                                <div class="cart">
+                                    <div>
+                                        <div class="img">
+                                            <img src="{% static 'images/profile_img.jpg' %}" alt="">
+                                        </div>
+                                        <div class="info">
+                                            <p class="name">{{ item.first_name }}</p>
+                                            <p class="second_name">{{ item.username }}</p>
+                                        </div>
                                     </div>
-                                    <div class="info">
-                                        <p class="name">Zineb_essoussi</p>
-                                        <p class="second_name">Zim Ess</p>
-                                    </div>
-                                </div>
-                                <div class="switch">
-                                    <button class="follow_text" href="#">follow</button>
-                                </div>
-                            </div>
-                            <div class="cart">
-                                <div>
-                                    <div class="img">
-                                        <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                    </div>
-                                    <div class="info">
-                                        <p class="name">Zineb_essoussi</p>
-                                        <p class="second_name">Zim Ess</p>
+                                    <div class="switch">
+                                        <form action="{% url 'make-follow-url' item.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button class="follow_text" type="submit">follow</button>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="switch">
-                                    <button class="follow_text" href="#">follow</button>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

@@ -39,24 +39,23 @@ class MakeRegisterView(View):
         data = request.POST
 
         username = data.get('username')
-        try:
-            CustomUser.objects.get(username=username)
+        user_exists = CustomUser.objects.filter(username=username).exists()
+        if user_exists:
             error = "Пользователь с таким юзернеймом уже существует"
             return render(request, 'sign_up.html', {'error': error})
-        except CustomUser.DoesNotExist:
-            first_name = data['first_name']
-            last_name = data['last_name']
-            password1 = data['password1']
-            password2 = data['password2']
-            if password1 == password2:
-                user = CustomUser.objects.create_user(username=username, password=password1, first_name=first_name,
-                                                      last_name=last_name)
-                user.save()
-                login(request, user)
-                return redirect('profile-url')
-            else:
-                error = "Пароли не совпадают"
-                return render(request, 'sign_up.html', {'error': error})
+
+        first_name = data['first_name']
+        last_name = data['last_name']
+        password1 = data['password1']
+        password2 = data['password2']
+        if password1 == password2:
+            user = CustomUser.objects.create_user(username=username, password=password1, first_name=first_name,
+                                                  last_name=last_name)
+            login(request, user)
+            return redirect('profile-url')
+        else:
+            error = "Пароли не совпадают"
+            return render(request, 'sign_up.html', {'error': error})
 
 
 class LoginView(TemplateView):
@@ -83,6 +82,7 @@ class MakeLoginView(View):
 
         if correct:
             login(request, user)
+            return redirect("home-url")
 
         else:
             error = "Неверный пароль"
@@ -92,12 +92,17 @@ class MakeLoginView(View):
 class MakeFollowView(View):
     """Вьюшка для подписки на другого пользователя"""
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         user = request.user
         follow_user_id = kwargs['pk']
 
         follow_user = CustomUser.objects.get(id=follow_user_id)
+        if follow_user == user:
+            return redirect("profile-url")
 
         user.follows.add(follow_user)
         user.save()
         return redirect('home-url')
+
+
+# TODO: implement unfollow
