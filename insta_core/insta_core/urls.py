@@ -17,11 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from users.views import ProfileView, RegisterView, LoginView
+from blog.views import HomeView
+from users.views import (ProfileView, RegisterView, LoginView, MakeRegisterView, MakeLoginView,
+                         MakeFollowView)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('profile/', ProfileView.as_view(), name='profile-url'),
+    path('home/', HomeView.as_view(), name='home-url'),
     path('login/', LoginView.as_view(), name='login-url'),
+    path('make-login/', MakeLoginView.as_view(), name='make-login-url'),
     path('register/', RegisterView.as_view(), name='register-url'),
+    path('make-register/', MakeRegisterView.as_view(), name='make-register-url'),
+    path('make-follow/<int:pk>', MakeFollowView.as_view(), name='make-follow-url'),
 ]

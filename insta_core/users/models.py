@@ -9,11 +9,6 @@ class CustomUser(AbstractUser):
 
     REQUIRED_FIELDS = []
 
-    phone_number = models.CharField(
-        max_length=25,
-        validators=[MinLengthValidator(7)],
-        unique=True)
-
     birth_day = models.DateField(
         null=True,
         blank=True)
@@ -27,6 +22,8 @@ class CustomUser(AbstractUser):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
+    follows = models.ManyToManyField("CustomUser", related_name="user_follows")
 
 
 class Chat(models.Model):

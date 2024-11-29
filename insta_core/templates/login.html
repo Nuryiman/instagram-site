@@ -17,7 +17,7 @@
         <div class="login">
             <div class="images d-none d-lg-block">
                 <div class="frame">
-                    <img src="./images/home-phones.png" alt="picutre frame">
+                    <img src="{% static 'images/home-phones.png' %}" alt="picutre frame">
                 </div>
                 <div class="sliders">
                     <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -43,20 +43,23 @@
                     <div class="logo">
                         <img src="{% static 'images/logo.png' %}" alt="Instagram logo">
                     </div>
-                    <form>
+                    <form action="{% url 'make-login-url' %}" method="POST">
+                        {% csrf_token %}
                         <div>
                             <input type="text" name="username" id="emai" placeholder="username">
                         </div>
                         <div>
                             <input type="password" name="password" id="password" placeholder="password">
                         </div>
-                        
-                    </form>
-                    <a href="./home.html">
+                        {% if error %}
+                            <p style="color: red">
+                                {{ error }}
+                            </p>
+                        {% endif %}
                         <button class="log_btn">
                             Log in
                         </button>
-                    </a>
+
                     <div class="other-ways">
                         <div class="seperator">
                             <span class="ligne"></span>
@@ -79,7 +82,7 @@
                 <div class="sing-up border_insc">
                     <p>
                         Don't have an account? 
-                        <a href="./sign_up.html">Sign up</a>
+                        <a href="{% url 'register-url' %}">Sign up</a>
                     </p>
                 </div>
                 <div class="download">
