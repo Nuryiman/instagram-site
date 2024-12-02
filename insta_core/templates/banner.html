@@ -122,3 +122,44 @@
         <a href="{% url 'profile-url' %}"><img class="circle story" src="{% static 'images/profile_img.jpg' %}"></a>
     </div>
 </div>
+<div class="modal fade" id="create_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal_share">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title w-100 fs-5 d-flex align-items-center justify-content-between" id="exampleModalLabel">
+                    <span class="title_create">Create new post</span>
+                    <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </h1>
+            </div>
+            <div class="modal-body">
+                <!-- Инструкция -->
+                <p class="upload-instruction">Перетащите сюда фото/видео и напишите описание</p>
+                <form id="upload-form" method="post" enctype="multipart/form-data" action="{% url 'create-publication' %}">
+                    {% csrf_token %}
+                    <!-- Поле для загрузки файла -->
+                    <div class="upload-section">
+                        <label class="file-label btn btn-primary">
+                            выбрать с компьютера
+                            <input class="input_select" type="file" id="image-upload" name="preview" accept="image/*,video/*" required>
+                        </label>
+                    </div>
+                    <!-- Поле для описания -->
+                    <div class="description-section">
+                        <textarea class="form-control" id="post-description" name="description" placeholder="Описание..." rows="3" required></textarea>
+                    </div>
+                    <!-- Кнопка отправки -->
+                    <div class="submit-section">
+                        <button type="submit" class="btn btn-primary w-100">Опубликовать</button>
+                    </div>
+                </form>
+                <!-- Загрузка превью -->
+                <div id="image-container" class="hide_img">
+                    <img src="" alt="Preview" id="image-preview">
+                </div>
+                <div class="post_published hide_img">
+                    <p>Your post has been published successfully!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

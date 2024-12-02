@@ -10,7 +10,7 @@ class Publication(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='publications')
     description = models.TextField(max_length=1000)
 
-    preview = models.FileField(upload_to='previews/',
+    preview = models.FileField(upload_to='previews',
                                validators=[FileExtensionValidator(
                                    allowed_extensions=['MOV', 'avi', 'mp4', 'webm', 'mkv', 'png', 'jpg', 'jpeg'])])
 
@@ -33,3 +33,15 @@ class Hashtag(models.Model):
 
     title = models.CharField(max_length=255)
     publication = models.ManyToManyField(Publication, related_name='hashtags')
+
+
+class PublicationComment(models.Model):
+    """Моделька для комментариев"""
+
+    publication = models.ForeignKey(Publication, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField()
+    created_at = models.TextField()
+    updated_at = models.TextField()
+
+

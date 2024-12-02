@@ -1,12 +1,14 @@
 from django.contrib.auth import login
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import TemplateView
 
+from blog.models import Publication
 from users.models import CustomUser
 
 
-class ProfileView(TemplateView):
+class MyProfileView(TemplateView):
     """Вьюшка для профиля"""
     template_name = 'profile.html'
 
@@ -15,10 +17,11 @@ class ProfileView(TemplateView):
 
         if user.is_authenticated:
             followers = CustomUser.objects.filter(follows=user)
-            print(followers)
+            publications = Publication.objects.filter(author=user)
 
             context = {
-                "followers": followers
+                "followers": followers,
+                "publications": publications,
             }
             return render(request, self.template_name, context)
         else:
@@ -95,14 +98,40 @@ class MakeFollowView(View):
     def post(self, request, *args, **kwargs):
         user = request.user
         follow_user_id = kwargs['pk']
+        try:
+            follow_user = CustomUser.objects.get(id=follow_user_id)
+        except CustomUser.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Invalid request"})
 
-        follow_user = CustomUser.objects.get(id=follow_user_id)
-        if follow_user == user:
-            return redirect("profile-url")
+        if follow_user in request.user.follows.all():
+            # Если подписан, отписываем
+            request.user.follows.remove(follow_user)
+            action = 'unfollowed'
+        else:
+            # Если не подписан, подписываем
+            request.user.follows.add(follow_user)
+            action = 'followed'
 
-        user.follows.add(follow_user)
-        user.save()
-        return redirect('home-url')
+        return JsonResponse({'success': True, 'action': action})
 
 
-# TODO: implement unfollow
+class UserProfileView(TemplateView):
+    """Вью для отображения профиля другого пользователя"""
+    template_name = "profile.html"
+
+    def get(self, request, *args, **kwargs):
+        user = CustomUser.objects.get(username=kwargs['username'])
+        if user == self.request.user:
+            return redirect('profile-url')
+        followers = CustomUser.objects.filter(follows=user)
+        publications = Publication.objects.filter(author=user)
+
+            # for item in request.user.follows.all()
+        request.user.followed = user in request.user.follows.all()
+
+        context = {
+            "user": user,
+            "followers": followers,
+            "publications": publications,
+        }
+        return render(request, self.template_name, context)

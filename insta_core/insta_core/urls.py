@@ -14,21 +14,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from blog.views import HomeView
-from users.views import (ProfileView, RegisterView, LoginView, MakeRegisterView, MakeLoginView,
-                         MakeFollowView)
+from blog.views import HomeView, CreatePublicationView, LikedView, AddCommentView
+from users.views import (MyProfileView, RegisterView, LoginView, MakeRegisterView, MakeLoginView,
+                         MakeFollowView,  UserProfileView)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('profile/', ProfileView.as_view(), name='profile-url'),
-    path('home/', HomeView.as_view(), name='home-url'),
+    path('profile/', MyProfileView.as_view(), name='profile-url'),
+    path('', HomeView.as_view(), name='home-url'),
     path('login/', LoginView.as_view(), name='login-url'),
     path('make-login/', MakeLoginView.as_view(), name='make-login-url'),
     path('register/', RegisterView.as_view(), name='register-url'),
     path('make-register/', MakeRegisterView.as_view(), name='make-register-url'),
-    path('make-follow/<int:pk>', MakeFollowView.as_view(), name='make-follow-url'),
+    path('follow-unfollow/<int:pk>/', MakeFollowView.as_view(), name='toggle-follow'),
+    path('create-publication/', CreatePublicationView.as_view(), name='create-publication'),
+    path('liked-publication/<int:pk>/', LikedView.as_view(), name='liked-url'),
+    path('add-comment/<int:pk>/', AddCommentView.as_view(), name='add-comment'),
+    path('profile/<str:username>/', UserProfileView.as_view(), name='user-profile'),
+
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

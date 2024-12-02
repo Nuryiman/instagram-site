@@ -194,162 +194,97 @@
                             </div>
                         </div>
                         <div class="posts">
-                            <div class="post">
-                                <div class="info">
-                                    <div class="person">
-                                        <img src="https://i.ibb.co/3S1hjKR/account1.jpg' %}">
-                                        <a href="#">zineb</a>
-                                        <span class="circle">.</span>
-                                        <span>45m</span>
-                                    </div>
-                                    <div class="more">
-                                        <img src="{% static 'images/show_more.png' %}" alt="show more">
-                                    </div>
-                                </div>
-                                <div class="image">
-                                    <img src="https://i.ibb.co/Jqh3rHv/img1.jpg">
-                                </div>
-                                <div class="desc">
-                                    <div class="icons">
-                                        <div class="icon_left d-flex">
-                                            <div class="like">
-                                                <img class="not_loved" src="{% static 'images/love.png' %}">
-                                                <img class="loved" src="{% static 'images/heart.png' %}">
-                                            </div>
-                                            <div class="chat">
-                                                <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#message_modal">
-                                                    <img src="{% static 'images/bubble-chat.png' %}">
-                                                </button>
-                                            </div>
-                                            <div class="send">
-                                                <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#send_message_modal">
-                                                    <img src="{% static 'images/send.png' %}">
-                                                </button>
-                                            </div>
+                            {% for item in publications %}
+                                <div class="post">
+                                    <div class="info">
+                                        <div class="person">
+                                            <img src="https://i.ibb.co/3S1hjKR/account1.jpg">
+                                            <a href="{% url 'user-profile' item.author.username %}">{{ item.author.username }}</a>
+                                            <span class="circle">.</span>
+                                            <span>{{ item.created_at }}</span>
                                         </div>
-                                        <div class="save not_saved">
-                                            <img class="hide saved" src="{% static 'images/save_black.png' %}">
-                                            <img class="not_saved" src="{% static 'images/save-instagram.png' %}">
+                                        <div class="more">
+                                            <img src="{% static 'images/show_more.png' %}" alt="show more">
                                         </div>
                                     </div>
-                                    <div class="liked">
-                                        <a class="bold" href="#">150 likes</a>
+                                    <div class="image">
+                                        <img src="{{ item.preview.url }}">
                                     </div>
-                                    <div class="post_desc">
-                                        <p>
-                                            <a class="bold" href="#">zineb</a> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla...
-                                        </p>
-                                        <p>
-                                            <a class="gray" href="#">View all 2 comments</a>
-                                        </p>
-                                        <input type="text" placeholder="Add a comments...">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <div class="info">
-                                    <div class="person">
-                                        <img src="https://i.ibb.co/8x4Hqdw/account2.jpg">
-                                        <a href="#">ikram</a>
-                                        <span class="circle">.</span>
-                                        <span>15m</span>
-                                    </div>
-                                    <div class="more">
-                                        <img src="{% static 'images/show_more.png' %}" alt="show more">
-                                    </div>
-                                </div>
-                                <div class="image">
-                                    <img src="https://i.ibb.co/2ZxBFVp/img2.jpg">
-                                </div>
-                                <div class="desc">
-                                    <div class="icons">
-                                        <div class="icon_left d-flex">
-                                            <div class="like">
-                                                <img class="not_loved" src="{% static 'images/love.png' %}">
-                                                <img class="loved" src="{% static 'images/heart.png' %}">
+                                    <div class="desc">
+                                        <div class="icons">
+                                            <div class="icon_left d-flex">
+                                                    <div class="like">
+                                                        {% if item.user_likes %}
+                                                            <img
+                                                                src="{% static 'images/heart.png' %}"
+                                                                data-item-id="{{ item.id }}"
+                                                                alt="Liked"
+                                                                onclick="toggleLike(this)"
+                                                            >
+                                                        {% else %}
+                                                            <img
+                                                                src="{% static 'images/love.png' %}"
+                                                                data-item-id="{{ item.id }}"
+                                                                alt="Not Liked"
+                                                                onclick="toggleLike(this)"
+                                                            >
+                                                        {% endif %}
+                                                    </div>
+                                                <div class="chat">
+                                                    <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#message_modal">
+                                                        <img src="{% static 'images/bubble-chat.png' %}">
+                                                    </button>
+                                                </div>
+                                                <div class="send">
+                                                    <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#send_message_modal">
+                                                        <img src="{% static 'images/send.png' %}">
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="chat">
-                                                <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#message_modal">
-                                                    <img src="{% static 'images/bubble-chat.png' %}">
-                                                </button>
-                                            </div>
-                                            <div class="send">
-                                                <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#send_message_modal">
-                                                    <img src="{% static 'images/send.png' %}">
-                                                </button>
+                                            <div class="save not_saved">
+                                                <img class="hide saved" src="{% static 'images/save_black.png' %}">
+                                                <img class="not_saved" src="{% static 'images/save-instagram.png' %}">
                                             </div>
                                         </div>
-                                        <div class="save not_saved">
-                                            <img class="hide saved" src="{% static 'images/save_black.png' %}">
-                                            <img class="not_saved" src="{% static 'images/save-instagram.png' %}">
+                                        <div class="liked">
+                                            <a class="bold" href="#">{{ item.likes.count }} likes</a>
                                         </div>
-                                    </div>
-                                    <div class="liked">
-                                        <a class="bold" href="#">150 likes</a>
-                                    </div>
-                                    <div class="post_desc">
-                                        <p>
-                                            <a class="bold" href="#">ikram</a> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla...
-                                        </p>
-                                        <p>
-                                            <a class="gray" href="#">View all 2 comments</a>
-                                        </p>
-                                        <input type="text" placeholder="Add a comments...">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <div class="info">
-                                    <div class="person">
-                                        <img src="https://i.ibb.co/x68ZFKP/account6.jpg">
-                                        <a href="#">amine</a>
-                                        <span class="circle">.</span>
-                                        <span>15m</span>
-                                    </div>
-                                    <div class="more">
-                                        <img src="{% static 'images/show_more.png' %}" alt="show more">
-                                    </div>
-                                </div>
-                                <div class="image">
-                                    <img src="https://i.ibb.co/r7xBR56/img5.jpg">
-                                </div>
-                                <div class="desc">
-                                    <div class="icons">
-                                        <div class="icon_left d-flex">
-                                            <div class="like">
-                                                <img class="not_loved" src="{% static 'images/love.png' %}">
-                                                <img class="loved" src="{% static 'images/heart.png' %}">
+                                        <div class="post_desc">
+                                            <p>
+                                                <a class="bold" href="#">zineb</a> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla...
+                                            </p>
+
+                                            <!-- Чекбокс для управления видимостью -->
+                                            <input type="checkbox" id="toggle-comments-{{ item.id }}" class="toggle-comments">
+                                            <label for="toggle-comments-{{ item.id }}" class="gray">Посмотреть все {{ item.comments.count }} комментариев</label>
+
+                                            <!-- Контейнер для комментариев -->
+                                            <div class="comments-container" id="comments-container-{{ item.id }}">
+                                                {% for comment in item.comments.all %}
+                                                    <div class="comment-item">
+                                                        {% if user.avatar %}
+                                                            <img src="{{ comment.author.avatar.url }}" alt="{{ comment.user.first_name }}'s avatar" class="comment-avatar">
+                                                        {% else %}
+                                                        <img src="{% static 'images/anonim.png' %}" alt="{{ comment.user.first_name }}'s avatar" class="comment-avatar">
+                                                        <p>
+                                                            <a class="bold" href="#">{{ comment.author.first_name }}</a> {{ comment.text }}
+                                                        </p>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endfor %}
                                             </div>
-                                            <div class="chat">
-                                                <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#message_modal">
-                                                    <img src="{% static 'images/bubble-chat.png' %}">
-                                                </button>
-                                            </div>
-                                            <div class="send">
-                                                <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#send_message_modal">
-                                                    <img src="{% static 'images/send.png' %}">
-                                                </button>
-                                            </div>
+
+                                            <!-- Форма для добавления комментариев -->
+                                            <form class="comment-form" data-item-id="{{ item.id }}">
+                                                <input type="text" placeholder="Add a comment..." class="comment-input">
+                                                <button type="submit" class="comment-btn">Post</button>
+                                            </form>
                                         </div>
-                                        <div class="save not_saved">
-                                            <img class="hide saved" src="{% static 'images/save_black.png' %}">
-                                            <img class="not_saved" src="{% static 'images/save-instagram.png' %}">
-                                        </div>
-                                    </div>
-                                    <div class="liked">
-                                        <a class="bold" href="#">150 likes</a>
-                                    </div>
-                                    <div class="post_desc">
-                                        <p>
-                                            <a class="bold" href="#">amine</a> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla...
-                                        </p>
-                                        <p>
-                                            <a class="gray" href="#">View all 2 comments</a>
-                                        </p>
-                                        <input type="text" placeholder="Add a comments...">
+
                                     </div>
                                 </div>
-                            </div>
+                            {% endfor %}
+
                         </div>
                     </div>
                 </div>
@@ -538,52 +473,11 @@
                 </div>
             </div>
             <!--Create model-->
-            <div class="modal fade" id="create_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title w-100 fs-5 d-flex align-items-end justify-content-between" id="exampleModalLabel">
-                                <span class="title_create">Create new post</span>
-                                <button class="next_btn_post btn_link"></button>
-                            </h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <img class="up_load" src="{% static 'images/upload.png' %}" alt="upload">
-                            <p>Drag photos and videos here</p>
-                            <button class="btn btn-primary btn_upload"> select from your computer <form id="upload-form">
-                                    <input class="input_select" type="file" id="image-upload" name="image-upload">
-                                </form>
-                            </button>
-                            <div id="image-container" class="hide_img"></div>
-                            <div id="image_description" class="hide_img">
-                                <div class="img_p"></div>
-                                <div class="description">
-                                    <div class="cart">
-                                        <div>
-                                            <div class="img">
-                                                <img src="{% static 'images/profile_img.jpg' %}">
-                                            </div>
-                                            <div class="info">undefined<p class="name">Zineb_essoussi</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <form>
-                                        <textarea type="text" id="emoji_create" placeholder="write your email"></textarea>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="post_published hide_img">
-                                <img src="{% static 'images/uploaded_post.gif" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
         <script src="{% static 'owlcarousel/jquery.min.js' %}"></script>
+        <script src="{% static 'js/like.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
     </body>
 </html>
