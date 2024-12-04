@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -20,6 +21,7 @@ class MyProfileView(TemplateView):
             publications = Publication.objects.filter(author=user)
 
             context = {
+                "user": user,
                 "followers": followers,
                 "publications": publications,
             }
@@ -135,3 +137,36 @@ class UserProfileView(TemplateView):
             "publications": publications,
         }
         return render(request, self.template_name, context)
+
+
+class SearchView(View):
+    """Вью для поиска пользователей"""
+
+    def get(self, request, *args, **kwargs):
+        user = request.user  # Текущий пользователь
+        query = request.GET.get("query", "").strip()  # Получаем запрос
+
+        if query:
+            # Ищем пользователей по username, first_name или last_name
+            users = CustomUser.objects.filter(
+                Q(username__icontains=query) |
+                Q(first_name__icontains=query) |
+                Q(last_name__icontains=query)
+            ).exclude(id=user.id)  # Исключаем текущего пользователя из результатов
+
+            # Формируем JSON-ответ
+            filtered_users = [
+                {
+                    "id": user.id,
+                    "username": user.username,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "avatar": user.avatar.url if user.avatar else '/static/images/anonim.png'
+                }
+                for user in users
+            ]
+            return JsonResponse({"success": True, "users": filtered_users})
+
+        # Если запрос пустой
+        return JsonResponse({"success": False, "users": []})
+

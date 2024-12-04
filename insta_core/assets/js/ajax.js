@@ -137,3 +137,63 @@ document.querySelector('.comment-form').addEventListener('submit', function(even
     })
     .catch(error => console.error('Ошибка запроса:', error));
 });
+
+
+
+let debounceTimeout;
+
+document.getElementById("searchInput").addEventListener("input", function () {
+    const query = this.value.trim();
+
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+
+    debounceTimeout = setTimeout(() => {
+        if (query.length > 1) { // Отправляем запрос только если длина строки больше 2 символов
+            fetch(`/search/?query=${encodeURIComponent(query)}`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Ошибка сервера");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    updateResults(data.users || []);
+                })
+                .catch((error) => {
+                    console.error("Ошибка запроса:", error);
+                });
+        } else {
+            updateResults([]); // Очистить результаты при пустом запросе
+        }
+    }, 300); // Задержка в 300 мс
+});
+
+// Функция для обновления результатов
+function updateResults(users) {
+    const resultsContainer = document.getElementById("results");
+    resultsContainer.innerHTML = ""; // Очистить старые результаты
+
+    if (users.length === 0) {
+        resultsContainer.innerHTML = "<p>No users found</p>";
+        return;
+    }
+
+    users.forEach((user) => {
+        const userCard = document.createElement("div");
+        userCard.className = "user-card";
+        userCard.innerHTML = `
+            <div class="cart">
+                <div>
+                    <div class="img">
+                        <img src="${user.avatar}" alt="${user.username}">
+                    </div>
+                    <div class="info">
+                        <a href="/profile/${user.username}"><p class="name">${user.first_name}</p></a>
+                        <p class="second_name">${user.username}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        resultsContainer.appendChild(userCard);
+    });
+}

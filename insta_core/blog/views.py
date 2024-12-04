@@ -17,7 +17,6 @@ class HomeView(TemplateView):
 
         user = request.user
         if user.is_authenticated:
-            user.follows.count()  # на скольких я подписался
 
             followers = CustomUser.objects.filter(follows=user)
             follows = user.follows.all()
