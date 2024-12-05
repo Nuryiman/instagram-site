@@ -465,10 +465,10 @@ $(document).ready(function() {
 });
 
 /**********Upload post*************/
-const form = document.getElementById('upload-form');
-const img_container = document.querySelector("#image-container");
+//const form = document.getElementById('upload-form');
+//const img_container = document.querySelector("#image-container");
 
-form.addEventListener('change', handleSubmit);
+//form.addEventListener('change', handleSubmit);
 
 let img_url;
 //add the image post

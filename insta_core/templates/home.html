@@ -15,7 +15,7 @@
                         <div class="stories">
                             <div class="owl-carousel items owl-loaded owl-drag">
                                 <div class="owl-stage-outer">
-                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all; width: 136px;">
+                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all; width: 544px;">
                                         <div class="owl-item active" style="width: 62.857px; margin-right: 5px;">
                                             <div class="item_s">
                                                 <img src="https://i.ibb.co/3S1hjKR/account1.jpg' %}">
@@ -164,7 +164,7 @@
                                             <img src="{% static 'images/profile_img.jpg' %}" alt="">
                                         </div>
                                         <div class="info">
-                                            <p class="name">{{ item.first_name }}</p>
+                                            <a href="{% url 'user-profile' item.username %}"><p class="name">{{ item.first_name }}</p></a>
                                             <p class="second_name">{{ item.username }}</p>
                                         </div>
                                     </div>
@@ -319,5 +319,6 @@
             </div>
             <!--Create model-->
         </div>
+    <script src="{% static 'js/ajax_comment.js' %}"></script>
     </body>
 {% endblock %}

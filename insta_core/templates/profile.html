@@ -63,7 +63,14 @@
                             <div id="posts_sec" class="post">
                                 {% for item in publications %}
                                     <div class="item">
-                                        <img class="img-fluid item_img" src="{{ item.preview.url }}" alt="{{ item.description }}">
+                                        {% if item.is_video %}
+                                            <video class="img-fluid item_img" controls>
+                                                <source src="{{ item.preview.url }}" type="video/mp4">
+                                                Ваш браузер не поддерживает видео.
+                                            </video>
+                                        {% else %}
+                                            <img class="img-fluid item_img" src="{{ item.preview.url }}" alt="{{ item.description }}">
+                                        {% endif %}
                                     </div>
                                 {% endfor %}
                             </div>

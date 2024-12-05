@@ -20,14 +20,17 @@ class MyProfileView(TemplateView):
             followers = CustomUser.objects.filter(follows=user)
             publications = Publication.objects.filter(author=user)
 
+            for item in publications:
+                item.is_video = item.preview.url.lower().endswith(('.mp4', '.webm', '.ogg'))
+                item.is_image = item.preview.url.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))
+
             context = {
                 "user": user,
                 "followers": followers,
                 "publications": publications,
             }
             return render(request, self.template_name, context)
-        else:
-            return redirect('login-url')
+        return redirect('login-url')
 
 
 class RegisterView(TemplateView):
@@ -170,3 +173,7 @@ class SearchView(View):
         # Если запрос пустой
         return JsonResponse({"success": False, "users": []})
 
+
+class UserMessagesView(TemplateView):
+    """Вьюшка для чата пользователей"""
+    template_name = 'messages.html'
