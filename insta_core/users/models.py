@@ -46,4 +46,3 @@ class UserMessage(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages', null=True)
 
 
-"""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"""
