@@ -47,3 +47,6 @@ class UserMessage(models.Model):
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages', null=True)
+
+
+"""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"""
