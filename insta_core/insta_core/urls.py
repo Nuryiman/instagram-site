@@ -22,7 +22,7 @@ from django.urls import path
 from blog.views import HomeView, CreatePublicationView, LikedView, AddCommentView
 from users.views import (MyProfileView, RegisterView, LoginView, MakeRegisterView, MakeLoginView,
                          MakeFollowView, UserProfileView, SearchView, UserMessagesView, UserEmptyChatView,
-                         SendMessageView)
+                         SendMessageView, MakeLogoutView)
 
 
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
     path('profile/', MyProfileView.as_view(), name='profile-url'),
     path('', HomeView.as_view(), name='home-url'),
     path('login/', LoginView.as_view(), name='login-url'),
+    path('make-logout/', MakeLogoutView.as_view(), name='make-logout-url'),
     path('make-login/', MakeLoginView.as_view(), name='make-login-url'),
     path('register/', RegisterView.as_view(), name='register-url'),
     path('make-register/', MakeRegisterView.as_view(), name='make-register-url'),

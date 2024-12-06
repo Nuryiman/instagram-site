@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -95,6 +95,15 @@ class MakeLoginView(View):
         else:
             error = "Неверный пароль"
             return render(request, 'login.html', {'error': error})
+
+
+class MakeLogoutView(View):
+
+    def get(self, request, *args, **kwargs):
+
+        logout(request)
+
+        return redirect('login-url')
 
 
 class MakeFollowView(View):
