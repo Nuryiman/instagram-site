@@ -137,20 +137,30 @@
                 <!--***** followers_container start ****** -->
                 <div class="followers_container">
                     <div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
+                        {% for item in chats %}
+                            <div class="cart">
+                                <div>
+                                    <div class="img">
+                                        <img src="{% static 'images/profile_img.jpg' %}" alt="">
+                                    </div>
+                                    <div class="info">
+                                        {% if item.user1 == user %}
+                                            <p class="name">{{ item.user2.first_name }}</p>
+                                        {% else %}
+                                            <p class="name">{{ item.user1.first_name }}</p>
+                                        {% endif %}
+                                        {% if item.user1 == user %}
+                                            <p class="second_name">{{ item.user2.username }}</p>
+                                        {% else %}
+                                            <p class="second_name">{{ item.user1.username }}</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
-                                    <p class="second_name">Zim Ess</p>
+                                <div class="switch">
+                                    <a href="{% url 'messages-url' item.id %}">Чат</a>
                                 </div>
                             </div>
-                            <div class="switch">
-                                <a href="#">Switch</a>
-                            </div>
-                        </div>
+                        {% endfor %}
                         <!--                    ЗДЕСЬ ПОКАЗЫВАЮТСЯ ВСЕ ОСТАЛЬНЫЕ ПОЛЬЗОВАТЕЛИ, ТО ЕСТЬ НЕ ВАШИ ПОДПИСКИ  -->
                         <div class="suggestions">
                             <div class="title">
@@ -171,7 +181,7 @@
                                     <div class="switch">
                                         <form action="{% url 'toggle-follow' item.id %}" method="POST">
                                             {% csrf_token %}
-                                            <button class="follow_text" type="submit">follow</button>
+                                            <button type="button" class="btn btn-primary follow-btn" data-user-id="{{ item.id }}" onclick="toggleFollow(this)">Подписаться</button>
                                         </form>
                                     </div>
                                 </div>

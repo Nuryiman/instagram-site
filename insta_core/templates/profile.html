@@ -40,7 +40,7 @@
                                 <!-- Кнопка для подписки -->
                                     <button type="button" class="btn btn-primary follow-btn" data-user-id="{{ user.id }}" onclick="toggleFollow(this)">Подписаться</button>
                             {% endif %}
-                            <button class="btn btn-secondary" id="message-btn">Message</button>
+                            <a class="btn btn-secondary" href="{% url 'user-empty-chat-url' user.username %}"><button id="message-btn">Сообщения</button></a>
                         {% endif %}
                     </div>
 

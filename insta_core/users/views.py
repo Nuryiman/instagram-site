@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from blog.models import Publication
-from users.models import CustomUser
+from users.models import CustomUser, Chat, UserMessage
 
 
 class MyProfileView(TemplateView):
@@ -177,3 +177,81 @@ class SearchView(View):
 class UserMessagesView(TemplateView):
     """Вьюшка для чата пользователей"""
     template_name = 'messages.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_authenticated:
+            return redirect("login-url")
+
+        chats = Chat.objects.filter(Q(user1=user) | Q(user2=user))
+        try:
+            chat = Chat.objects.get(id=kwargs['pk'])
+        except Chat.DoesNotExist:
+            return redirect("home-url")
+        if chat.user1 == user:
+            companion = chat.user2
+        else:
+            companion = chat.user1
+
+        chat_messages = UserMessage.objects.filter(Q(sender=user, receiver=companion) |
+                                                   Q(receiver=user, sender=companion)).order_by('created_at')
+
+        context = {
+            'chat': chat,
+            'user': user,
+            'companion': companion,
+            'chats': chats,
+            'chat_messages': chat_messages,
+        }
+        return render(request, self.template_name, context)
+
+
+class EmptyChatsView(TemplateView):
+    """Вью для пустого чата"""
+    template_name = "messages.html"
+
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        chats = Chat.objects.filter(Q(user1=user) | Q(user2=user))
+        context = {
+            'chats': chats
+        }
+        return context
+
+
+class UserEmptyChatView(TemplateView):
+    """Вью для еще не начатого чата"""
+    template_name = 'messages.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            user = CustomUser.objects.get(username=kwargs['username'])
+        except CustomUser.DoesNotExist:
+            return redirect("home-url")
+        context = {
+            "user": user
+        }
+        return render(request, self.template_name, context)
+
+
+class SendMessageView(View):
+    def post(self, request, *args, **kwargs):
+        user = request.user
+
+        companion = CustomUser.objects.get(username=kwargs['username'])
+        try:
+            chat = Chat.objects.get(user1=user, user2=companion)
+        except Chat.DoesNotExist:
+            try:
+                chat = Chat.objects.get(user2=user, user1=companion)
+            except Chat.DoesNotExist:
+                chat = Chat.objects.create(user1=user, user2=companion)
+
+        message = request.POST['message']
+        UserMessage.objects.create(
+            sender=user,
+            receiver=companion,
+            text=message,
+            chat=chat
+        )
+        return redirect('messages-url', pk=chat.id)

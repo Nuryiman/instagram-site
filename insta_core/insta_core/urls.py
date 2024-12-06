@@ -21,7 +21,8 @@ from django.urls import path
 
 from blog.views import HomeView, CreatePublicationView, LikedView, AddCommentView
 from users.views import (MyProfileView, RegisterView, LoginView, MakeRegisterView, MakeLoginView,
-                         MakeFollowView, UserProfileView, SearchView, UserMessagesView)
+                         MakeFollowView, UserProfileView, SearchView, UserMessagesView, UserEmptyChatView,
+                         SendMessageView)
 
 
 urlpatterns = [
@@ -38,7 +39,9 @@ urlpatterns = [
     path('add-comment/<int:pk>/', AddCommentView.as_view(), name='add-comment'),
     path('profile/<str:username>/', UserProfileView.as_view(), name='user-profile'),
     path('search/', SearchView.as_view(), name='search-url'),
-    path('messages/', UserMessagesView.as_view(), name='messages-url'),
+    path('messages/<int:pk>', UserMessagesView.as_view(), name='messages-url'),
+    path('user-chat/<str:username>', UserEmptyChatView.as_view(), name='user-empty-chat-url'),
+    path('send-message/<str:username>', SendMessageView.as_view(), name='send-message')
 
 ]
 

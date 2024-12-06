@@ -1,12 +1,13 @@
 import json
 
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import TemplateView
 
 from blog.models import Publication, PublicationComment
-from users.models import CustomUser
+from users.models import CustomUser, Chat
 
 
 class HomeView(TemplateView):
@@ -20,6 +21,7 @@ class HomeView(TemplateView):
 
             followers = CustomUser.objects.filter(follows=user)
             follows = user.follows.all()
+            chats = Chat.objects.filter(Q(user1=user) | Q(user2=user))
             publications =(
                 Publication.objects
                 .select_related("author")
@@ -33,7 +35,8 @@ class HomeView(TemplateView):
             context = {
                 "followers": followers,
                 "follows": follows,
-                "publications": publications
+                "publications": publications,
+                "chats": chats
             }
             return render(request, self.template_name, context)
         return redirect("login-url")

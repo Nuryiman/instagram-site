@@ -147,15 +147,17 @@ function updateResults(users) {
         userCard.className = "user-card";
         userCard.innerHTML = `
             <div class="cart">
+             <a href="/profile/${user.username}">
                 <div>
                     <div class="img">
                         <img src="${user.avatar}" alt="${user.username}">
                     </div>
                     <div class="info">
-                        <a href="/profile/${user.username}"><p class="name">${user.first_name}</p></a>
+                       <p class="name">${user.first_name}</p>
                         <p class="second_name">${user.username}</p>
                     </div>
                 </div>
+                </a>
             </div>
         `;
         resultsContainer.appendChild(userCard);

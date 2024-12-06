@@ -11,7 +11,7 @@
             <div class="message_container">
                 <div class="persons">
                     <div class="account_name">
-                        <p>Zineb_essoussi</p>
+                        <p>{{ user.username }}</p>
                         <p class="search">
                             <img src="{% static 'images/edit.png' %}" alt="edit">
                         </p>
@@ -19,94 +19,37 @@
                     <div class="account_message">
                         <div class="desc">
                             <p>Messages</p>
-                            <p><a href="#">3 requests</a></p>
+                            <p><a href="#">0 requests</a></p>
                         </div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
-                                </div>
-                            </div>
+                        {% for item in chats %}
+                            <div class="cart">
+                                <div>
+                                    <div class="img">
+                                        {% if item.user1 == user %}
+                                            {% if user2.avatar %}
+                                                <img src="{{ item.user2.avatar.url }}" alt="">
+                                            {% else %}
+                                                <img src="{% static 'images/anonim.png' %}" alt="">
+                                            {% endif %}
+                                        {% else %}
+                                            {% if user1.avatar %}
+                                                <img src="{{ item.user1.avatar.url }}" alt="">
+                                            {% else %}
+                                                <img src="{% static 'images/anonim.png' %}" alt="">
+                                            {% endif %}
+                                        {% endif %}
 
-                        </div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
+                                    </div>
+                                    <div class="info">
+                                        {% if item.user1 == user %}
+                                            <p class="name">{{ item.user2.username }}</p>
+                                        {% else %}
+                                            <p class="name">{{ item.user1.username }}</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="cart">
-                            <div>
-                                <div class="img">
-                                    <img src="{% static 'images/profile_img.jpg' %}" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
-                                </div>
-                            </div>
-
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="message">
@@ -117,7 +60,7 @@
                                     <img src="{% static 'images/profile_img.jpg' %}" alt="">
                                 </div>
                                 <div class="info">
-                                    <p class="name">Zineb_essoussi</p>
+                                    <p class="name">{{ companion.username }}</p>
                                 </div>
                             </div>
                         </div>
@@ -131,22 +74,17 @@
                         </div>
                     </div>
                     <div class="content">
-                        <div class="my_message">
-                            <p class="p_message">hello how are you?</p>
-                        </div>
-                        <div class="response_message">
-                            <p class="p_message">hi! i'm fine and you?</p>
-                        </div>
-                        <div class="my_message">
-                            <p class="p_message">I'm good </p>
-                        </div>
-                        <div class="response_message">
-                            <p class="p_message">I'll come tomorrow</p>
-                        </div>
+                        {% for item in chat_messages %}
+
+                                <div class="{% if item.sender == request.user %} my_message {% else %} response_message {% endif %}">
+                                    <p class="p_message">{{ item.text }}</p>
+                                </div>
+                        {% endfor %}
 
                     </div>
-                    <form>
-                        <input type="text" placeholder="write your email" />
+                    <form action="{% url 'send-message' user.username %}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" name="message" placeholder="Пиши сюда" required/>
                         <button type="submit" class="comment-btn">Send</button>
                     </form>
 
