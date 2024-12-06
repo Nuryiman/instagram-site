@@ -1,73 +1,4 @@
 
-/***************Post**************************/
-const posts = document.querySelector(".posts");
-const post_data = [
-  ['https://i.ibb.co/3S1hjKR/account1.jpg','zineb',45,'https://i.ibb.co/Jqh3rHv/img1.jpg',150,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla... ',2],
-  ['https://i.ibb.co/8x4Hqdw/account2.jpg','ikram',15,'https://i.ibb.co/2ZxBFVp/img2.jpg',150,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla... ',2],
-  ['https://i.ibb.co/CWbynB2/account3-1.jpg','amina',5,'https://i.ibb.co/5vQt677/img3.jpg',350,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla... ',2],
-  ['https://i.ibb.co/19R19st/account4.jpg','amal',15,'https://i.ibb.co/FVVxR6x/img.jpg',150,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla... ',2],
-  ['https://i.ibb.co/x68ZFKP/account6.jpg','amine',15,'https://i.ibb.co/r7xBR56/img5.jpg',150,'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima accusantium aperiam quod non minus cumque, recusandae hic soluta harum aut nulla... ',2],
-]
-
-if(posts)
-  for (var i = 0; i < post_data.length; i++) {
-    const post_div = document.createElement('div')
-    post_div.classList.add("post");
-    post_div.innerHTML = `
-    <div class="info">
-      <div class="person">
-          <img src="${post_data[i][0]}">
-          <a href="#">${post_data[i][1]}</a>
-          <span class="circle">.</span>
-          <span>${post_data[i][2]}m</span>
-      </div>
-      <div class="more">
-          <img src="./images/show_more.png" alt="show more">
-      </div>
-    </div>
-    <div class="image">
-      <img src="${post_data[i][3]}" >
-    </div>
-    <div class="desc">
-      <div class="icons">
-          <div class="icon_left d-flex">
-              <div class="like">
-                  <img class="not_loved" src="./images/love.png" >
-                  <img class="loved" src="./images/heart.png" >
-              </div>
-              <div class="chat">
-                  <button type="button" class="btn p-0" data-bs-toggle="modal"
-                      data-bs-target="#message_modal">
-                      <img src="./images/bubble-chat.png" >
-                  </button>
-              </div>
-              <div class="send">
-                  <button type="button" class="btn p-0" data-bs-toggle="modal"
-                      data-bs-target="#send_message_modal">
-                      <img src="./images/send.png" >
-                  </button>
-              </div>
-          </div>
-          <div class="save not_saved">
-              <img class="hide saved" src="./images/save_black.png" >
-              <img class="not_saved" src="./images/save-instagram.png" >
-          </div>
-      </div>
-      <div class="liked">
-          <a class="bold" href="#">${post_data[i][4]} likes</a>
-      </div>
-      <div class="post_desc">
-          <p>
-              <a class="bold" href="#">${post_data[i][1]}</a>
-              ${post_data[i][5]}
-          </p>
-          <p><a class="gray" href="#">View all ${post_data[i][6]} comments</a></p>
-          <input type="text" placeholder="Add a comments...">
-      </div>
-    </div>
-      `;
-    posts.appendChild(post_div);
-  }
 
 /***************explore**********/
 const explore_date = [
@@ -442,24 +373,24 @@ notification_icon.forEach( (notif)=>{
   notif.addEventListener('click',function(){
     notification.classList.toggle("show");
   })
-} 
+}
 )
 
 
 /**************************icons+text change **************************/
 //change the icon when the user click on it
-
-//love btn
-let love_icons = document.querySelectorAll(".like");
-love_icons.forEach(function(icon){
-  icon.addEventListener("click",function(){
-      let not_loved = icon.children[0];
-      let loved = icon.children[1];
-      icon.classList.toggle("love");
-      not_loved.classList.toggle("hide_img");
-      loved.classList.toggle("display");
-  })
-});
+//
+////love btn
+//let love_icons = document.querySelectorAll(".like");
+//love_icons.forEach(function(icon){
+//  icon.addEventListener("click",function(){
+//      let not_loved = icon.children[0];
+//      let loved = icon.children[1];
+//      icon.classList.toggle("love");
+//      not_loved.classList.toggle("hide_img");
+//      loved.classList.toggle("display");
+//  })
+//});
 
 //save btn
 let save_icon = document.querySelectorAll(".save");
@@ -534,10 +465,10 @@ $(document).ready(function() {
 });
 
 /**********Upload post*************/
-const form = document.getElementById('upload-form');
-const img_container = document.querySelector("#image-container");
+//const form = document.getElementById('upload-form');
+//const img_container = document.querySelector("#image-container");
 
-form.addEventListener('change', handleSubmit);
+//form.addEventListener('change', handleSubmit);
 
 let img_url;
 //add the image post

@@ -1755,3 +1755,104 @@ button.log_btn:hover {
 .sign_up .content .download div img {
   height: 40px;
 }/*# sourceMappingURL=main.css.map */
+
+/* Скрываем комментарии по умолчанию */
+.comments-container {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Показываем комментарии, если чекбокс включен */
+.toggle-comments:checked ~ .comments-container {
+    display: block;
+}
+
+/* Стили для ссылки */
+label[for="toggle-comments"] {
+    cursor: pointer;
+    color: gray;
+    text-decoration: none;
+}
+
+/* Стили для формы комментариев */
+.comment-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Стили для текстового поля */
+.comment-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+/* Стили для кнопки */
+.comment-btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+/* Ховер эффект для кнопки */
+.comment-btn:hover {
+    background-color: #0056b3;
+}
+
+.comment-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment-avatar {
+    width: 40px; /* Размер аватарки */
+    height: 40px; /* Размер аватарки */
+    border-radius: 50%; /* Округление */
+    margin-right: 10px; /* Отступ справа от аватарки */
+    object-fit: cover; /* Обеспечивает правильное масштабирование изображения */
+}
+
+.comment-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.comment-item .bold {
+    font-weight: bold;
+}
+
+
+/* Стиль для контейнера кнопок */
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.profile-actions .btn {
+    width: 48%;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.profile-actions .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.profile-actions .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
